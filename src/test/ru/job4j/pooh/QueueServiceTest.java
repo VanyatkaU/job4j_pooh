@@ -12,11 +12,11 @@ class QueueServiceTest {
         String paramForPostMethod = "temperature=18";
         /* Добавляем данные в очередь weather. Режим queue */
         queueService.process(
-                new Req("POST", "queue", "weather", paramForPostMethod)
+                new Req(Req.POST, PoohServer.QUEUE, "weather", paramForPostMethod)
         );
         /* Забираем данные из очереди weather. Режим queue */
         Resp result = queueService.process(
-                new Req("GET", "queue", "weather", null)
+                new Req(Req.GET, PoohServer.QUEUE, "weather", null)
         );
         assertThat(result.text()).isEqualTo("temperature=18");
     }
@@ -26,10 +26,10 @@ class QueueServiceTest {
         QueueService queueService = new QueueService();
         String paramForPostMethod = "temperature=18";
         queueService.process(
-                new Req("POST", "queue", "weather", paramForPostMethod)
+                new Req(Req.POST, PoohServer.QUEUE, "weather", paramForPostMethod)
         );
         Resp result = queueService.process(
-                new Req("", "queue", "weather", null)
+                new Req("", PoohServer.QUEUE, "weather", null)
         );
         assertThat(result.text()).isEqualTo("");
     }
@@ -39,13 +39,13 @@ class QueueServiceTest {
         QueueService queueService = new QueueService();
         String paramForPostMethod = "temperature=18";
         queueService.process(
-                new Req("POST", "queue", "weather", paramForPostMethod)
+                new Req(Req.POST, PoohServer.QUEUE, "weather", paramForPostMethod)
         );
         Resp result = queueService.process(
-                new Req("GET", "queue", "weather", null)
+                new Req(Req.GET, PoohServer.QUEUE, "weather", null)
         );
         Resp result1 = queueService.process(
-                new Req("GET", "queue", "weather", null)
+                new Req(Req.GET, PoohServer.QUEUE, "weather", null)
         );
         assertThat(result.text()).isEqualTo("temperature=18");
         assertThat(result1.text()).isEqualTo(null);

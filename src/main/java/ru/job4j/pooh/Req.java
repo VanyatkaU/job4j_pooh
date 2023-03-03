@@ -2,6 +2,10 @@ package ru.job4j.pooh;
 
 public class Req {
 
+    public static final String POST = "POST";
+
+    public static final  String GET = "GET";
+
     private final String httpRequestType;
     private final String poohMode;
     private final String sourceName;

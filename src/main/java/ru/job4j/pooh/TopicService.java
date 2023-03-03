@@ -3,6 +3,9 @@ package ru.job4j.pooh;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static ru.job4j.pooh.Req.GET;
+import static ru.job4j.pooh.Req.POST;
+
 public class TopicService implements Service {
 
     private final ConcurrentHashMap<String, ConcurrentHashMap<String,
@@ -13,14 +16,14 @@ public class TopicService implements Service {
         String text = "";
         String status = "404";
         ConcurrentHashMap<String, ConcurrentLinkedQueue<String>> subscriber;
-        if ("POST".equals(req.httpRequestType())) {
+        if (POST.equals(req.httpRequestType())) {
             subscriber = topic.get(req.getSourceName());
             if (subscriber.equals(topic.get(req.getSourceName()))) {
                 for (String keys : subscriber.keySet()) {
                     subscriber.get(keys).add(req.getParam());
                 }
             }
-        } else if ("GET".equals(req.httpRequestType())) {
+        } else if (GET.equals(req.httpRequestType())) {
             topic.putIfAbsent(req.getSourceName(), new ConcurrentHashMap<>());
             subscriber = topic.get(req.getSourceName());
             if (subscriber.get(req.getParam()) != null) {
