@@ -26,10 +26,10 @@ public class TopicService implements Service {
             }
         } else if (GET.equals(req.httpRequestType())) {
             topic.putIfAbsent(req.getSourceName(), new ConcurrentHashMap<>());
-            subscriber = topic.get(req.getSourceName());
+            subscriber = topic.getOrDefault(req.getSourceName(), new ConcurrentHashMap<>());
             if (subscriber.get(req.getParam()) != null) {
                 text = subscriber.get(req.getParam()).poll();
-                status = STATUSTEXT.equals(text) ? STATUS404 : STATUS200;
+                status = text == null ? STATUS404 : STATUS200;
             }
             subscriber.putIfAbsent(req.getParam(), new ConcurrentLinkedQueue<>());
         }
