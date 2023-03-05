@@ -2,7 +2,13 @@ package ru.job4j.pooh;
 
 public class Resp {
 
-    private final String text;
+    public static final String STATUS404 = "404";
+
+    public static final String STATUS200 = "200";
+
+    public static final String STATUSTEXT = "";
+
+    private  final String text;
     private final String status;
 
     public Resp(String text, String status) {
